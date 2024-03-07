@@ -61,6 +61,7 @@ NOTE: Add new changes BELOW THIS COMMENT.
 
 ### Fixed
 
+- Statistics for 7 days displayed by day on the dashboard graph ([#6712]).
 - Missing IP addresses in logs when querying for domain names from the ignore
   lists.
 - Wrong algorithm for caching bootstrapped upstream addresses ([#6723]).
@@ -74,6 +75,7 @@ NOTE: Add new changes BELOW THIS COMMENT.
 [#6610]: https://github.com/AdguardTeam/AdGuardHome/issues/6610
 [#6679]: https://github.com/AdguardTeam/AdGuardHome/issues/6679
 [#6711]: https://github.com/AdguardTeam/AdGuardHome/issues/6711
+[#6712]: https://github.com/AdguardTeam/AdGuardHome/issues/6712
 
 [go-toolchain]: https://go.dev/blog/toolchain
 [go-1.21.8]:    https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg
