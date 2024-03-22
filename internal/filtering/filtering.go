@@ -12,7 +12,6 @@ import (
 	"path/filepath"
 	"runtime"
 	"runtime/debug"
-	"slices"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -30,6 +29,7 @@ import (
 	"github.com/AdguardTeam/urlfilter/filterlist"
 	"github.com/AdguardTeam/urlfilter/rules"
 	"github.com/miekg/dns"
+	"golang.org/x/exp/slices"
 )
 
 // The IDs of built-in filter lists.
@@ -1113,7 +1113,8 @@ func (d *DNSFilter) periodicallyRefreshFilters(ivl time.Duration) (nextIvl time.
 		ivl = maxInterval
 	} else if isNetErr {
 		ivl *= 2
-		ivl = max(ivl, maxInterval)
+		// TODO(s.chzhen):  Use built-in function max in Go 1.21.
+		ivl = mathutil.Max(ivl, maxInterval)
 	}
 
 	return ivl
