@@ -14,7 +14,7 @@ and this project adheres to
 <!--
 ## [v0.108.0] - TBA
 
-## [v0.107.46] - 2024-03-13 (APPROX.)
+## [v0.107.45] - 2024-03-05 (APPROX.)
 
 See also the [v0.107.45 GitHub milestone][ms-v0.107.45].
 
