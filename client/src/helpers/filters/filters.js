@@ -209,7 +209,7 @@ export default {
             "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_47.txt"
         },
         "hagezi_multinormal": {
-            "name": "HaGeZi's Normal Blocklist",
+            "name": "HaGeZi Multi NORMAL",
             "categoryId": "general",
             "homepage": "https://github.com/hagezi/dns-blocklists",
             "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_34.txt"
