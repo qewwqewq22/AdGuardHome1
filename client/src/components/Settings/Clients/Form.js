@@ -147,7 +147,7 @@ let Form = (props) => {
         useGlobalSettings,
         useGlobalServices,
         blockedServicesSchedule,
-        handleClose,
+        toggleClientModal,
         processingAdding,
         processingUpdating,
         invalid,
@@ -427,7 +427,7 @@ let Form = (props) => {
                         disabled={submitting}
                         onClick={() => {
                             reset();
-                            handleClose();
+                            toggleClientModal();
                         }}
                     >
                         <Trans>cancel_btn</Trans>
@@ -456,7 +456,7 @@ Form.propTypes = {
     reset: PropTypes.func.isRequired,
     change: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired,
-    handleClose: PropTypes.func.isRequired,
+    toggleClientModal: PropTypes.func.isRequired,
     useGlobalSettings: PropTypes.bool,
     useGlobalServices: PropTypes.bool,
     blockedServicesSchedule: PropTypes.object,
