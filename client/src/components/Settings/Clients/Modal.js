@@ -6,9 +6,7 @@ import ReactModal from 'react-modal';
 import { MODAL_TYPE } from '../../../helpers/constants';
 import Form from './Form';
 
-const getInitialData = ({
-    initial, modalType, clientId, clientName,
-}) => {
+const getInitialData = (initial) => {
     if (initial && initial.blocked_services) {
         const { blocked_services } = initial;
         const blocked = {};
@@ -23,60 +21,46 @@ const getInitialData = ({
         };
     }
 
-    if (modalType !== MODAL_TYPE.EDIT_CLIENT && clientId) {
-        return {
-            ...initial,
-            name: clientName,
-            ids: [clientId],
-        };
-    }
-
     return initial;
 };
 
-const Modal = ({
-    isModalOpen,
-    modalType,
-    currentClientData,
-    handleSubmit,
-    handleClose,
-    processingAdding,
-    processingUpdating,
-    tagsOptions,
-    clientId,
-    t,
-}) => {
-    const initialData = getInitialData({
-        initial: currentClientData,
+const Modal = (props) => {
+    const {
+        isModalOpen,
         modalType,
-        clientId,
-        clientName: t('client_name', { id: clientId }),
-    });
+        currentClientData,
+        handleSubmit,
+        toggleClientModal,
+        processingAdding,
+        processingUpdating,
+        tagsOptions,
+    } = props;
+    const initialData = getInitialData(currentClientData);
 
     return (
         <ReactModal
             className="Modal__Bootstrap modal-dialog modal-dialog-centered modal-dialog--clients"
             closeTimeoutMS={0}
             isOpen={isModalOpen}
-            onRequestClose={handleClose}
+            onRequestClose={() => toggleClientModal()}
         >
             <div className="modal-content">
                 <div className="modal-header">
                     <h4 className="modal-title">
-                        {modalType === MODAL_TYPE.EDIT_CLIENT ? (
+                        {modalType === MODAL_TYPE.EDIT_FILTERS ? (
                             <Trans>client_edit</Trans>
                         ) : (
                             <Trans>client_new</Trans>
                         )}
                     </h4>
-                    <button type="button" className="close" onClick={handleClose}>
+                    <button type="button" className="close" onClick={() => toggleClientModal()}>
                         <span className="sr-only">Close</span>
                     </button>
                 </div>
                 <Form
                     initialValues={{ ...initialData }}
                     onSubmit={handleSubmit}
-                    handleClose={handleClose}
+                    toggleClientModal={toggleClientModal}
                     processingAdding={processingAdding}
                     processingUpdating={processingUpdating}
                     tagsOptions={tagsOptions}
@@ -91,12 +75,10 @@ Modal.propTypes = {
     modalType: PropTypes.string.isRequired,
     currentClientData: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    handleClose: PropTypes.func.isRequired,
+    toggleClientModal: PropTypes.func.isRequired,
     processingAdding: PropTypes.bool.isRequired,
     processingUpdating: PropTypes.bool.isRequired,
     tagsOptions: PropTypes.array.isRequired,
-    t: PropTypes.func.isRequired,
-    clientId: PropTypes.string,
 };
 
 export default withTranslation()(Modal);
