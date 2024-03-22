@@ -18,7 +18,7 @@ and this project adheres to
 
 See also the [v0.107.44 GitHub milestone][ms-v0.107.44].
 
-[ms-v0.107.44]: https://github.com/AdguardTeam/AdGuardHome/milestone/79?closed=1
+[ms-v0.107.44]: https://github.com/qewwqewq22/AdGuardHome1/milestone/79?closed=1
 
 NOTE: Add new changes BELOW THIS COMMENT.
 -->
