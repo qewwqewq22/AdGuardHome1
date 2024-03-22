@@ -24,10 +24,32 @@ fi
 set -f -u
 
 
-
 # Source the common helpers, including not_found and run_linter.
 . ./scripts/make/helper.sh
 
+# Warnings
+
+go_version="$( "${GO:-go}" version )"
+readonly go_version
+
+go_min_version='go1.20.12'
+go_version_msg="
+warning: your go version (${go_version}) is different from the recommended minimal one (${go_min_version}).
+if you have the version installed, please set the GO environment variable.
+for example:
+	export GO='${go_min_version}'
+"
+readonly go_min_version go_version_msg
+
+case "$go_version"
+in
+('go version'*"$go_min_version"*)
+	# Go on.
+	;;
+(*)
+	echo "$go_version_msg" 1>&2
+	;;
+esac
 
 
 # Simple analyzers
@@ -102,10 +124,12 @@ underscores() {
 	underscore_files="$(
 		git ls-files '*_*.go'\
 			| grep -F\
+   			-e '_big.go'\
 			-e '_bsd.go'\
 			-e '_darwin.go'\
 			-e '_freebsd.go'\
 			-e '_linux.go'\
+   			-e '_little.go'\
 			-e '_next.go'\
 			-e '_openbsd.go'\
 			-e '_others.go'\
