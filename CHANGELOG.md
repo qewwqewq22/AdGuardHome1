@@ -14,11 +14,11 @@ and this project adheres to
 <!--
 ## [v0.108.0] - TBA
 
-## [v0.107.45] - 2024-03-05 (APPROX.)
+## [v0.107.45] - 2024-02-06 (APPROX.)
 
-See also the [v0.107.45 GitHub milestone][ms-v0.107.45].
+See also the [v0.107.44 GitHub milestone][ms-v0.107.44].
 
-[ms-v0.107.45]: https://github.com/AdguardTeam/AdGuardHome/milestone/80?closed=1
+[ms-v0.107.44]: https://github.com/AdguardTeam/AdGuardHome/milestone/79?closed=1
 
 NOTE: Add new changes BELOW THIS COMMENT.
 -->
@@ -2759,8 +2759,8 @@ See also the [v0.104.2 GitHub milestone][ms-v0.104.2].
 
 
 <!--
-[Unreleased]: https://github.com/AdguardTeam/AdGuardHome/compare/v0.107.45...HEAD
-[v0.107.45]:  https://github.com/AdguardTeam/AdGuardHome/compare/v0.107.44...v0.107.45
+[Unreleased]: https://github.com/AdguardTeam/AdGuardHome/compare/v0.107.44...HEAD
+[v0.107.44]:  https://github.com/AdguardTeam/AdGuardHome/compare/v0.107.43...v0.107.44
 -->
 
 [Unreleased]: https://github.com/AdguardTeam/AdGuardHome/compare/v0.107.44...HEAD
