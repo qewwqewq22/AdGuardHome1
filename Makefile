@@ -27,7 +27,6 @@ DIST_DIR = dist
 GOAMD64 = v1
 GOPROXY = https://goproxy.cn|https://proxy.golang.org|direct
 GOSUMDB = sum.golang.google.cn
-GOTOOLCHAIN = go1.21.8
 GPG_KEY = devteam@adguard.com
 GPG_KEY_PASSPHRASE = not-a-real-password
 NPM = npm
@@ -57,16 +56,15 @@ BUILD_RELEASE_DEPS_0 = deps js-build
 BUILD_RELEASE_DEPS_1 = go-deps
 
 ENV = env\
-	CHANNEL='$(CHANNEL)'\
 	COMMIT='$(COMMIT)'\
+	CHANNEL='$(CHANNEL)'\
+	GPG_KEY='$(GPG_KEY)'\
+	GPG_KEY_PASSPHRASE='$(GPG_KEY_PASSPHRASE)'\
 	DIST_DIR='$(DIST_DIR)'\
 	GO="$(GO.MACRO)"\
 	GOAMD64="$(GOAMD64)"\
 	GOPROXY='$(GOPROXY)'\
 	GOSUMDB='$(GOSUMDB)'\
-	GOTOOLCHAIN='$(GOTOOLCHAIN)'\
-	GPG_KEY='$(GPG_KEY)'\
-	GPG_KEY_PASSPHRASE='$(GPG_KEY_PASSPHRASE)'\
 	PATH="$${PWD}/bin:$$( "$(GO.MACRO)" env GOPATH )/bin:$${PATH}"\
 	RACE='$(RACE)'\
 	SIGN='$(SIGN)'\
@@ -119,8 +117,6 @@ go-tools: ; $(ENV) "$(SHELL)" ./scripts/make/go-tools.sh
 # targets.
 go-test:  ; $(ENV) RACE='1' "$(SHELL)" ./scripts/make/go-test.sh
 
-go-upd-tools: ; $(ENV) "$(SHELL)" ./scripts/make/go-upd-tools.sh
-
 go-check: go-tools go-lint go-test
 
 # A quick check to make sure that all supported operating systems can be
@@ -136,3 +132,10 @@ openapi-lint: ; cd ./openapi/ && $(YARN) test
 openapi-show: ; cd ./openapi/ && $(YARN) start
 
 txt-lint: ; $(ENV) "$(SHELL)" ./scripts/make/txt-lint.sh
+
+# TODO(a.garipov): Consider adding to scripts/ and the common project
+# structure.
+go-upd-tools:
+	cd ./internal/tools/ &&\
+		"$(GO.MACRO)" get -u &&\
+		"$(GO.MACRO)" mod tidy
