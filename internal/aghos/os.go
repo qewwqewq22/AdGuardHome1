@@ -7,16 +7,18 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/fs"
 	"os"
 	"os/exec"
 	"path"
 	"runtime"
-	"slices"
 	"strconv"
 	"strings"
 
 	"github.com/AdguardTeam/golibs/errors"
 	"github.com/AdguardTeam/golibs/log"
+	"github.com/AdguardTeam/golibs/mathutil"
+	"golang.org/x/exp/slices"
 )
 
 // UnsupportedError is returned by functions and methods when a particular
@@ -61,7 +63,7 @@ func RunCommand(command string, arguments ...string) (code int, output []byte, e
 	cmd := exec.Command(command, arguments...)
 	out, err := cmd.Output()
 
-	out = out[:min(len(out), MaxCmdOutputSize)]
+	out = out[:mathutil.Min(len(out), MaxCmdOutputSize)]
 
 	if err != nil {
 		if eerr := new(exec.ExitError); errors.As(err, &eerr) {
@@ -140,7 +142,7 @@ func parsePSOutput(r io.Reader, cmdName string, ignore []int) (largest, instNum 
 		}
 
 		instNum++
-		largest = max(largest, cur)
+		largest = mathutil.Max(largest, cur)
 	}
 	if err = s.Err(); err != nil {
 		return 0, 0, fmt.Errorf("scanning stdout: %w", err)
@@ -152,6 +154,13 @@ func parsePSOutput(r io.Reader, cmdName string, ignore []int) (largest, instNum 
 // IsOpenWrt returns true if host OS is OpenWrt.
 func IsOpenWrt() (ok bool) {
 	return isOpenWrt()
+}
+
+// RootDirFS returns the [fs.FS] rooted at the operating system's root.  On
+// Windows it returns the fs.FS rooted at the volume of the system directory
+// (usually, C:).
+func RootDirFS() (fsys fs.FS) {
+	return rootDirFS()
 }
 
 // NotifyReconfigureSignal notifies c on receiving reconfigure signals.
